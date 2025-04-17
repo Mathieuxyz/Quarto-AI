@@ -21,7 +21,16 @@ def boardupdate(piece: str, pos: int, board: dict, played : tuple):
         played.append(piece)
 
 
+def win(board: dict, lines: list):
 
+    n = 0
+
+    for j in lines:
+        for i in board:
+            if i in j:
+                n =+ 1
+                if n == 3:
+                    return "won"
 
 
 boardupdate("adc", 12, board, played)
