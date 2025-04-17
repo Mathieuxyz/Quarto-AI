@@ -11,17 +11,18 @@ lines = [[0, 1, 2, 3],
          [0, 5, 10, 15],
          [3, 6, 9, 12]]
 
-board = {8: "abc", 5: "sjf"}
-played = ("abc", "sjf")
+board = {8: "abc", 4: "sjf", 0: "abd"}
+played = ["abc", "sjf", "abd"]
 
 def boardupdate(piece: str, pos: int, board: dict, played : tuple):
 
     if pos not in board and piece not in played:
         board.update({pos: piece})
+        played.append(piece)
 
 
 
 
 
-boardupdate("abc", 9, board, played)
+boardupdate("adc", 12, board, played)
 print(board)
