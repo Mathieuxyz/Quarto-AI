@@ -1,22 +1,36 @@
 import socket
 import json
 
-class Client:
+class Client: #We will first connect the client to the server to subscribe himself to the contest and only then he will shift to player mode with another port
 
-    def __init__(self, host, port) -> None:
+    def __init__(self, host, port, message): #To NOT modify !
         self.host = host
         self.port = port
+        self.message = message
+        self.subscribe()
 
-    def connect(self, message: dict):
+    def subscribe(self): #We will first connect the client to the server to subscribe himself to the contest
+        try: # Connect to the server
+            self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.s.connect((self.host, self.port))
+            # Send the message to the server
+            self.message_sender(self.message)
+            self.s.close() 
+            print(f'Client {self.message["name"]} is subscribed to the server') #confirmation message
+            self.connect_game()
+
+        except ConnectionRefusedError as e: #in case a connection failed
+            print(f'Connection failed: {e}')
+
+    def connect_game(self): #connecting the new socket to play on a new port
         
         try: # Connect to the server
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.s.connect((self.host, self.port))
-            print('Client connected')  
             # Send the message to the server
-            self.message_sender(message)
+            self.message_sender(self.message)
 
-            while True:
+            while True: #Once the socket is connected, this While True makes sures all the messages are received
 
                 try:
                     response = (self.s.recv(4000).decode())
@@ -24,38 +38,37 @@ class Client:
                     self.response_treatment(response)
                 except:
                     pass
-        except ConnectionRefusedError as e:
+        except ConnectionRefusedError as e: #in case a connection failed
             print(f'Connection failed: {e}')
     
-    def response_treatment(self, response): #quand un message est reçu ceci est le centre de traitement
+    def response_treatment(self, response): #This is like a centre were all received messages from the server are managed
 
-        if response["response"] == "ping": #réponse ping pong
+        if response["response"] == "ping": #ping pong response
             self.message_sender({"response": "pong"})
 
-        elif response["response"] == "play": #réponse de coup
-            print(response["state"])
+        elif response["response"] == "play": #play response
             try:
-                self._message = random_play(response["state"])
+                self._message = random_play(response["state"]) #call to the win document that manages game startegy
                 self.message_sender(self._message)
-            except: #si le coup est raté voici ce qu'on envoie au pire des cas
+            except: #if nothing works, we give up the game
                 self.message_sender({"response": "giveup"})
-        else: #en cas d'autre message, on le print
+        else: #if another message is received
             print(f'Server response {response}')
     
-    def message_sender(self, message): #manière ordonnée d'envoyer les messages au serveur. Tout les messages reçus sont des bibliothèques et traités ensuite en json
+    def message_sender(self, message): #Organised way to send the messages. The function receives a dictionnary and transform it in a sendable message
         try:
             self.s.send(json.dumps(message).encode())
         except Exception as e:
             print(f'Message not sent : {e}')
             
 
-client1 = Client('172.17.10.133', 3000)
+
 message1 = {"request": "subscribe",
            "port": 4000,
            "name": "Henrotte/Redbull",
            "matricules": ["23363", "23049"]
            }
+client1 = Client('172.17.10.133', 3000, message1)
 
-client1.connect(message1)
 
         
