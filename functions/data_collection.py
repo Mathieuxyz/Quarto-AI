@@ -69,5 +69,10 @@ def chose_case():
         free = free - {i}
     return random.choice(list(free))
 
+def messages():
+
+    mes = ["tu pues"]
+    return random.choice(mes)
+
 print(chose_case())
-print(give_piece())
+print(give_piece()) 
