@@ -11,8 +11,8 @@ lines = [[0, 1, 2, 3],
          [0, 5, 10, 15],
          [3, 6, 9, 12]]
 
-board = {8: "abc", 4: "sjf", 0: "abd"}
-played = ["abc", "sjf", "abd"]
+board = {8: "BDEC", 4: "BLEC", 0: "BDFC"}
+played = ["BDEC", "BLEC", "BDFC"]
 
 def boardupdate(piece: str, pos: int, board: dict, played : tuple):
 
@@ -24,17 +24,18 @@ def boardupdate(piece: str, pos: int, board: dict, played : tuple):
 def win(board: dict, lines: list):
 
     for line in lines:
-        n = 0
+        familly = ["B", "S", "D", "L", "E", "F", "C", "P"]
+
         for i in line:
             if i in board:
-                n += 1
-                if n == 4:
+                familly = list(set(familly).intersection(set(board[i])))
+                print(familly)
+
+                if len(familly) == 1:
                     return True
-    return False
-                
+    return False            
 
 
-
-boardupdate("adc", 13, board, played)
+boardupdate("BDEP", 12, board, played)
 print(board)
 print(win(board, lines))
