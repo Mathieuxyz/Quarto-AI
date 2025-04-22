@@ -34,11 +34,13 @@ class Client:
             print(f'Connection failed: {e}')
             
 
-client1 = Client('127.0.0.1', 3000)
-message = {"request": "subscribe",
+client1 = Client('172.17.10.133', 3000)
+message1 = {"request": "subscribe",
            "port": 4000,
-           "name": "Madame_Henrotte_gaming",
+           "name": "Henrotte_gaming",
            "matricules": ["23363", "23049"]
            }
-client1.connect(message)
+
+client1.connect(message1)
+
         
