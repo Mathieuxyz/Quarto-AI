@@ -12,13 +12,13 @@ lines = [[0, 1, 2, 3],
          [3, 6, 9, 12]]
 
 board = {8: "BDEC", 4: "BLEC", 0: "BDFC"}
-played = ["BDEC", "BLEC", "BDFC"]
+played = {"BDEC", "BLEC", "BDFC"}
 
 def boardupdate(piece: str, pos: int, board: dict, played : tuple):
 
     if pos not in board and piece not in played:
         board.update({pos: piece})
-        played.append(piece)
+        played.add(piece)
 
 
 def win(board: dict, lines: list):
