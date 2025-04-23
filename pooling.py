@@ -75,30 +75,42 @@ def win(board: dict, lines: list):
         for i in line:
             if i in board:
                 familly = list(set(familly).intersection(set(board[i])))
-                print(familly)
-
+                
                 if len(familly) == 1:
                     return True
     return False 
 
 def chose_case():
     free = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 , 14, 15}
-    boardtest = board
+    test_board = board
     for i in board:
         free = free - {i}
 
     for i in free:
-        boardtest.update({i: state["piece"]})
-        if win(boardtest, lines) == True:
-            return i
+        test_board.update({i: state["piece"]})
+        if win(test_board, lines) == True:
+            return i, test_board, free
     
-    return random.choice(list(free))
+    return random.choice(list(free)), test_board, free
+
+
+
 
 def give_piece():
     choices = pieces - played
+    test_board = chose_case()[1]
+    cases = chose_case()[2] - {chose_case()[0]}
+    for p in choices:  
+        n = 0   
+        for i in cases:
+            n += 1
+            test_board.update({i: p})
+            if win(test_board, lines) == False and n == len(cases):
+                return p
     return random.choice(list(choices))
 
+#chosen_case = 
+#next_piece = 
 
-
-print(chose_case())
+print(chose_case()[0])
 print(give_piece()) 
