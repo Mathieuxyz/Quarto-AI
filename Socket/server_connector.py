@@ -2,6 +2,14 @@ import socket
 
 import json
 
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+import functions.win as win
+
+
 class Client: #We will first connect the client to the server to subscribe himself to the contest and only then he will shift to player mode with another port
 
 

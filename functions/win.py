@@ -34,4 +34,4 @@ def win(board: dict, lines: list):
 
 
 boardupdate("adc", 12, board, played)
-print(board)
+
