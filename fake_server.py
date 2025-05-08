@@ -6,7 +6,7 @@ def main():
     host = '0.0.0.0'
     port = 3333
     server_socket.bind((host, port))
-    server_socket.listen()
+    server_socket.listen(10)
     
     while True:
         client_socket, client_address = server_socket.accept()

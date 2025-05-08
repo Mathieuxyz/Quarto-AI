@@ -38,8 +38,6 @@ class Client: #We will first connect the client to the server to subscribe himse
 
             self.s.close() 
 
-            print(f'Client {self.message["name"]} is subscribed to the server') #confirmation message
-
             self.connect_game()
 
 
@@ -97,7 +95,9 @@ class Client: #We will first connect the client to the server to subscribe himse
 
                 self._message = random_play(response["state"]) #call to the win document that manages game startegy
 
-                self.message_sender(self._message)
+                move = {"response": "move", "move": self._message, "message": "Le coup est lancé !"}
+
+                self.message_sender(move)
 
             except: #if nothing works, we give up the game
 
@@ -119,10 +119,7 @@ class Client: #We will first connect the client to the server to subscribe himse
             print(f'Message not sent : {e}')
             
 
+if __name__ == "__main__":
 
-message = {"request": "subscribe",
-           "port": 4000,
-           "name": "Redbull",
-           "matricules": ["23363", "23049"]
-           }
-client = Client('192.168.184.107', 3000, message)
+    message = {"request": "subscribe","port": 4000,"name": "Redbull","matricules": ["23363", "23049"]}
+    client = Client('192.168.184.107', 3000, message)

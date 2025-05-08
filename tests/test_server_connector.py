@@ -1,5 +1,3 @@
-import socket
-
 import Socket.server_connector as connector
 import fake_server as server
 
@@ -9,7 +7,7 @@ host = '127.0.0.1'
 port = 3333
 message = {"request": "subscribe", "port": 4000, "name": "Redbull"}
 
-def test_subscription():
+def test_init():
 
     monkeypatch.setattr(connector.Client, "subscribe", lambda self: None)
 
