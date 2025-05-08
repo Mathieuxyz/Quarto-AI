@@ -142,6 +142,6 @@ class quartoAI:
 
         
     
-ai = quartoAI(state)
-print(ai.move())
+#ai = quartoAI(state)
+#print(ai.move())
 

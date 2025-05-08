@@ -7,7 +7,7 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import functions.win as win
+import dataclass_pooling as dcp
 
 
 class Client: #We will first connect the client to the server to subscribe himself to the contest and only then he will shift to player mode with another port
@@ -95,9 +95,11 @@ class Client: #We will first connect the client to the server to subscribe himse
 
             try:
 
-                self._message = random_play(response["state"]) #call to the win document that manages game startegy
+                ai = dcp.quartoAI(response["state"])
+                self._message = dcp.ai.move() #call to the win document that manages game startegy
 
-                self.message_sender(self._message)
+                response = {"response": "move", "move": self._message, "message": "La calotte de tes morts"}
+                self.message_sender(response)
 
             except: #if nothing works, we give up the game
 
@@ -122,7 +124,7 @@ class Client: #We will first connect the client to the server to subscribe himse
 
 message = {"request": "subscribe",
            "port": 4000,
-           "name": "Redbull",
+           "name": "Tartiflette",
            "matricules": ["23363", "23049"]
            }
-client = Client('192.168.184.107', 3000, message)
+client = Client('172.17.10.133', 3000, message)
