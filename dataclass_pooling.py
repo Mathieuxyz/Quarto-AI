@@ -134,3 +134,9 @@ class quartoAI:
 ai = quartoAI(state)
 print(ai.chose_case())
 print(ai.give_piece())
+
+
+
+move = {"pos": ai.chose_case(),
+        "piece": ai.give_piece()
+        }
