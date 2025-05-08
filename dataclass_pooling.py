@@ -96,6 +96,7 @@ class quartoAI:
 
 
     def chose_case(self):
+
         test_board = copy.deepcopy(self.board)
         occupied = set(self.board.keys())
         free = set(range(16)) - occupied
@@ -112,6 +113,7 @@ class quartoAI:
         return c
     
     def give_piece(self):
+
         occupied = set(self.board.keys())
         free = set(range(16)) - occupied
         choices = self.pieces - self.played
@@ -129,14 +131,17 @@ class quartoAI:
             if safe:
                 return p 
         return random.choice(list(choices))
+    
+    def move(self):
+
+        move = {"pos": self.chose_case(),
+                "piece": self.give_piece()
+                }
+
+        return move
+
         
     
 ai = quartoAI(state)
-print(ai.chose_case())
-print(ai.give_piece())
+print(ai.move())
 
-
-
-move = {"pos": ai.chose_case(),
-        "piece": ai.give_piece()
-        }
