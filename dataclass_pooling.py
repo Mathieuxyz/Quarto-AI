@@ -35,9 +35,10 @@ class quartoAI:
     played : set
     lines : list
     free : set
+    piece : str
     
 
-    def __init__(self):
+    def __init__(self, state):
 
         self.board = {}
         self.played = set()
@@ -52,6 +53,7 @@ class quartoAI:
                 [0, 5, 10, 15],
                 [3, 6, 9, 12]]
         self.free = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 , 14, 15}
+        self.piece = state["piece"]
 
         #offload toutes les données liées au board du state (cree un board en sous forme de dictionaire)
 
@@ -63,11 +65,11 @@ class quartoAI:
     def win(self, board: dict):
 
         for line in self.lines:
-            family = ["B", "S", "D", "L", "E", "F", "C", "P"]
+            family = set("BSDLEFCP")
 
             for i in line:
                 if i in self.board:
-                    family = list(set(family).intersection(set(self.board[i])))
+                    family &= set(board[i]) 
                     
                     if len(family) == 1:
                         return True
@@ -75,15 +77,20 @@ class quartoAI:
 
 
     def chose_case(self):
-        
         test_board = copy.deepcopy(self.board)
-        for i in test_board:
-            self.free = self.free - {i}
+        occupied = set(self.board.keys())
+        free = set(range(16)) - occupied
 
-        for i in self.free:
-            test_board.update({i: state["piece"]})
-            if self.win(test_board) == True:
+        for i in free:
+            test_board[i] = self.piece
+            if self.win(test_board):
                 self.board = test_board
                 return i
-        
-        return random.choice(list(self.free)), test_board
+
+        return random.choice(list(free))
+    
+    
+    
+ai = quartoAI(state)
+case = ai.chose_case()
+print(case)

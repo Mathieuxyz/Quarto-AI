@@ -70,13 +70,13 @@ print(board)
 def win(board: dict, lines: list):
 
     for line in lines:
-        familly = ["B", "S", "D", "L", "E", "F", "C", "P"]
+        family = set("BSDLEFCP")
 
         for i in line:
             if i in board:
-                familly = list(set(familly).intersection(set(board[i])))
+                family &= set(board[i]) 
                 
-                if len(familly) == 1:
+                if len(family) == 1:
                     return True
     return False 
 
