@@ -20,7 +20,11 @@ class Client: #We will first connect the client to the server to subscribe himse
             # Send the message to the server
             self.s.send(json.dumps(self.message).encode())
             self.s.close() 
+<<<<<<< HEAD
             print(f'Client {self.message["name"]} is subscribed to the server') #confirmation message
+=======
+
+>>>>>>> origin/pytest
             self.connect_game()
         except ConnectionRefusedError as e: #in case a connection failed
             print(f'Connection failed: {e}')
@@ -56,8 +60,14 @@ class Client: #We will first connect the client to the server to subscribe himse
                 ai = dcp.quartoAI(response["state"])
                 self._message = dcp.ai.move() #call to the win document that manages game startegy
 
+<<<<<<< HEAD
                 response = {"response": "move", "move": self._message, "message": "La calotte de tes morts"}
                 self.message_sender(response)
+=======
+                move = {"response": "move", "move": self._message, "message": "Le coup est lancé !"}
+
+                self.message_sender(move)
+>>>>>>> origin/pytest
 
             except: #if nothing works, we give up the game
 
@@ -79,6 +89,7 @@ class Client: #We will first connect the client to the server to subscribe himse
             print(f'Message not sent : {e}')
             
 
+<<<<<<< HEAD
 if __name__ == "__main__" :
     message = {"request": "subscribe",
             "port": 4000,
@@ -88,3 +99,9 @@ if __name__ == "__main__" :
     client = Client('172.17.10.133', 3000, message)
     client.subscribe()
 
+=======
+if __name__ == "__main__":
+
+    message = {"request": "subscribe","port": 4000,"name": "Redbull","matricules": ["23363", "23049"]}
+    client = Client('192.168.184.107', 3000, message)
+>>>>>>> origin/pytest
