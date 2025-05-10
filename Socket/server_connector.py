@@ -20,11 +20,6 @@ class Client: #We will first connect the client to the server to subscribe himse
             # Send the message to the server
             self.s.send(json.dumps(self.message).encode())
             self.s.close() 
-<<<<<<< HEAD
-            print(f'Client {self.message["name"]} is subscribed to the server') #confirmation message
-=======
-
->>>>>>> origin/pytest
             self.connect_game()
         except ConnectionRefusedError as e: #in case a connection failed
             print(f'Connection failed: {e}')
