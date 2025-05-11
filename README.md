@@ -62,9 +62,33 @@ if __name__ == "__main__" :
 
 ## The strategy of this AI
 
-In progress, for the moment its random.
+### 1. Finding a Winning Move
 
+- The AI first checks all available positions on the board.
+- For each free spot, it simulates placing the current piece and checks if this leads to an immediate win (four pieces sharing a common characteristic).
 
+Example:
+```python
+for position in free_positions:
+    test_board = copy.deepcopy(self.board)
+    test_board[position] = self.piece
+    if self.win(test_board):
+        return position  # Play here to win immediately
+```
 
+- If a winning move is found, the AI plays it instantly.
+
+### 2. Choosing the next piece
+
+- If a winning move is played, the AI randomly selects a piece among those that have not yet been used.
+
+```python
+remaining_pieces = self.pieces - self.played
+chosen_piece = random.choice(list(remaining_pieces))
+```
+
+- If no immediate win is possible, the AI uses a Minimax algorithm (with a depth of 2) to find the best move and select a strategic piece to give the opponent.
+
+Minimax explores all possible placements of the current piece on free positions and simulates handing each remaining piece to the opponent. It alternates turns recursively, maximizing score on the AI's turn and minimizing on the opponent’s turn. Immediate wins are scored ±1000; otherwise, a heuristic evaluates board favorability based on shared features. Search depth is limited to 2 plies to balance performance and strategic foresight. The AI selects the move (position + next piece) that optimizes its outcome assuming perfect opponent play.
 
 
