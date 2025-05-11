@@ -2,6 +2,32 @@ from dataclasses import dataclass
 import random
 import copy
 
+
+state = {
+  "players": ["LUR", "FKY"],
+  "current": 0,
+  "board": [
+    None,
+    "BDEC",
+    None,
+    "SDFP",
+    None,
+    None,
+    None,
+    None,
+    None,
+    "SLFC",
+    None,
+    None,
+    "BLFP",
+    "BLEC",
+    None,
+    None
+  ],
+  "piece": "BLEP"
+}
+
+
 @dataclass
 class quartoAI:
 
@@ -148,3 +174,8 @@ class quartoAI:
         "pos": best_move[0],
         "piece": best_move[1]
         }
+    
+
+print("pute")
+ia = quartoAI(state)
+print(quartoAI.move_minimax())
