@@ -42,6 +42,18 @@ class quartoAI:
                         return True
         return False 
 
+    def evaluate(self, board: dict):
+
+        val = 0
+
+        for line in self.lines:
+            line_pieces = [board[i] for i in line if i in board]
+            if len(line_pieces) > 1:
+                common = set(line_pieces[0])
+                for piece in line_pieces[1:]:
+                    common &= set(piece)
+                    val = common
+        return val
 
     def chose_case(self): #to place the given piece
 
