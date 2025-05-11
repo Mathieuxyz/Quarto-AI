@@ -92,3 +92,6 @@ chosen_piece = random.choice(list(remaining_pieces))
 Minimax explores all possible placements of the current piece on free positions and simulates handing each remaining piece to the opponent. It alternates turns recursively, maximizing score on the AI's turn and minimizing on the opponent’s turn. Immediate wins are scored ±1000; otherwise, a heuristic evaluates board favorability based on shared features. Search depth is limited to 2 plies to balance performance and strategic foresight. The AI selects the move (position + next piece) that optimizes its outcome assuming perfect opponent play.
 
 
+## License:
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
