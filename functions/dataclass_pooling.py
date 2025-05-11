@@ -133,7 +133,7 @@ class quartoAI:
                 return p #TO Modify !!!! This is not complete
         return random.choice(list(choices)) #if nothing is safe we return smth random, last case
     
-    def move(self): #after the class is created, we ask to calculate the next move and piece to give
+    def move_no_algorithm(self): #after the class is created, we ask to calculate the next move and piece to give
 
         move = {"pos": self.chose_case(),
                 "piece": self.give_piece()
@@ -141,3 +141,10 @@ class quartoAI:
 
         return move
 
+    def move_minimax(self):
+        score, best_move = self.minimax(self.board, self.played, depth = 2, our_turn = True, current_piece = self.piece)
+
+        return {
+        "pos": best_move[0],
+        "piece": best_move[1]
+        }
