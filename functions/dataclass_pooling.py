@@ -44,16 +44,17 @@ class quartoAI:
 
     def evaluate(self, board: dict):
 
-        val = 0
+        val = 0  #gives a value based on the state of the game, if it is in our favor or in the opponent's favor
 
         for line in self.lines:
-            line_pieces = [board[i] for i in line if i in board]
-            if len(line_pieces) > 1:
+            line_pieces = [board[i] for i in line if i in board]    #creates a list with all the pieces in a line 
+            if len(line_pieces) > 1:    #ignore les lignes ou il n'y a que une piece
                 common = set(line_pieces[0])
                 for piece in line_pieces[1:]:
                     common &= set(piece)
-                    val = common
+                    val += len(common)  #gives a value based on the amout of common pionts in a line
         return val
+
 
     def chose_case(self): #to place the given piece
 
