@@ -169,13 +169,16 @@ class quartoAI:
 
     def move_minimax(self):
         score, best_move = self.minimax(self.board, self.played, depth = 2, our_turn = True, current_piece = self.piece)
+        
+        if best_move is None:   # Fallback on basic strategy 
+        
+            return self.move_no_algorithm()
 
         return {
         "pos": best_move[0],
         "piece": best_move[1]
         }
     
-
-print("pute")
+print("Début de l'exécution de l'IA")
 ia = quartoAI(state)
-print(quartoAI.move_minimax())
+print(ia.move_minimax())
