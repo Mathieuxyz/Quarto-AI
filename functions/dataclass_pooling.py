@@ -64,7 +64,7 @@ class quartoAI:
                 if i in board: #check if that line is full op pieces in order to go next
                     family &= set(board[i]) #checks that all values that i take (all pieces of the line) have one thing in common
                     
-                    if len(family) >= 1: #if so, the combination is a win. >= because they can have muiltiple characteristics in common
+                    if len(family) >= 1 and all(i in board for i in line): #if so, the combination is a win. >= because they can have muiltiple characteristics in common
                         return True
         return False 
 
