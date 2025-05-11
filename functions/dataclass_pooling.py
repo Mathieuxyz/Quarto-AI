@@ -54,7 +54,47 @@ class quartoAI:
                     common &= set(piece)
                     val += len(common)  #gives a value based on the amout of common pionts in a line
         return val
+    
+    def minimax(self, board, played_pieces, depth, our_turn, current_piece):
 
+        if self.win(board):
+            return (-1000 if our_turn else 1000), None
+        
+        if depth == 0 or len(played_pieces) == 16:
+            score = self.evaluate(board)
+            return score, None
+        
+        if our_turn:
+            best_score = float("-inf")
+        else:
+            best_score = float("inf")
+
+        best_move = None
+
+        free_positions = set(range(16)) - set(board.keys())
+
+        remaining_pieces = self.pieces - played_pieces - {current_piece}
+
+        for position in free_positions:
+            new_board = board.copy()
+            new_board[position] = current_piece
+
+            new_played = played_pieces | {current_piece}
+
+            for next_piece in remaining_pieces:
+                future_score, _ = self.minimax(new_board, new_played, depth - 1, not our_turn, next_piece)
+
+                if our_turn:
+                    if future_score > best_score:
+                        best_score = future_score
+                        best_move = (position, next_piece) 
+
+                else:
+                    if future_score < best_score:
+                        best_score = future_score
+                        best_move = (position, next_piece)
+
+        return best_score, best_move
 
     def chose_case(self): #to place the given piece
 
