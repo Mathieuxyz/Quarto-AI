@@ -2,32 +2,6 @@ from dataclasses import dataclass
 import random
 import copy
 
-
-state = {
-  "players": ["LUR", "FKY"],
-  "current": 0,
-  "board": [
-    None,
-    "BDEC",
-    None,
-    "SDFP",
-    None,
-    None,
-    None,
-    None,
-    None,
-    "SLFC",
-    None,
-    None,
-    "BLFP",
-    "BLEC",
-    None,
-    None
-  ],
-  "piece": "BLEP"
-}
-
-
 @dataclass
 class quartoAI:
 
@@ -133,52 +107,29 @@ class quartoAI:
             if self.win(test_board): #if it works out it returns the position 
                 self.board = test_board #make sure the new board is uploaded so that give_piece doesn't make an error
                 return i 
-            
-        c = random.choice(list(free)) #TO Modify !!!! This is not complete
-        self.board[c] = self.piece
-
-        return c
+        return None
     
-    def give_piece(self):
+    def give_random_piece(self):
 
-        occupied = set(self.board.keys())
-        free = set(range(16)) - occupied
         choices = self.pieces - self.played #pieces available to play
 
-        for p in choices:
-            safe = True  #the piece to give is safe or not
-
-            for i in free: #checks in all available positions if one of them leads to an easy win
-                test_board = copy.deepcopy(self.board)
-                test_board[i] = p
-                if self.win(test_board):
-                    safe = False
-                    break #if there's only one winning combination we break the loop to try another piece
-
-            if safe:
-                return p #TO Modify !!!! This is not complete
         return random.choice(list(choices)) #if nothing is safe we return smth random, last case
     
-    def move_no_algorithm(self): #after the class is created, we ask to calculate the next move and piece to give
+    def move(self): #after the class is created, we ask to calculate the next move and piece to give
 
-        move = {"pos": self.chose_case(),
-                "piece": self.give_piece()
-                }
-
-        return move
+        pos = self.chose_case()
+        if pos is not None:
+            move = {"pos": pos,
+                    "piece": self.give_random_piece()
+                    }
+            return move
+        else :
+            return self.move_minimax()
 
     def move_minimax(self):
         score, best_move = self.minimax(self.board, self.played, depth = 2, our_turn = True, current_piece = self.piece)
-        
-        if best_move is None:   # Fallback on basic strategy 
-        
-            return self.move_no_algorithm()
 
         return {
         "pos": best_move[0],
         "piece": best_move[1]
         }
-    
-print("Début de l'exécution de l'IA")
-ia = quartoAI(state)
-print(ia.move_minimax())
