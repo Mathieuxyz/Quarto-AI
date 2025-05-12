@@ -1,4 +1,3 @@
 pytest
-socket
 json
 numpy
