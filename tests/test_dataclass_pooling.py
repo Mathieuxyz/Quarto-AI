@@ -112,6 +112,32 @@ def test_move():
     assert type(move2['piece']) == str
     assert len(move2['piece']) == 4
 
+def test_move_minimax():
+    # Prepare a complex board situation where no immediate winning move is available
+    null = None
+    state = {
+        "players": ["LUR", "FKY"],
+        "current": 0,
+        "board": [null, "BDEC", null, null, null, null, null, null,
+                  null, null, null, null, null, null, null, null],
+        "piece": "BDFP"
+    }
+
+    # Create an instance of the AI with the given state
+    sit = pooling.quartoAI(state)
+
+    # Directly call move_minimax to test it
+    move = sit.move_minimax()
+
+    # Assert that the returned move has the correct structure
+    assert type(move) == dict  # move must be a dictionary
+    assert 'pos' in move and 'piece' in move  # move must contain 'pos' and 'piece' keys
+    assert type(move['pos']) == int  # 'pos' must be an integer
+    assert 0 <= move['pos'] <= 15  # 'pos' must be a valid board index
+    assert type(move['piece']) == str  # 'piece' must be a string
+    assert len(move['piece']) == 4  # 'piece' string must have length 4
+
+
 
 
 
