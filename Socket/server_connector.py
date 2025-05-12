@@ -2,7 +2,6 @@ import socket
 
 import json
 
-import sys
 import os
 
 import functions.dataclass_pooling as dcp
@@ -58,7 +57,7 @@ class Client: #We will first connect the client to the server to subscribe himse
                 response = {"response": "move", "move": self._message, "message": "Carotte"}
                 self.message_sender(response)
 
-            except: #if nothing works, we give up the game
+            except: #if nothing works, we give up the game. This ia a security barrier to avoid doing a bad move
 
                 self.message_sender({"response": "giveup"})
 
