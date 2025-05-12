@@ -131,6 +131,8 @@ class quartoAI:
 
         score, best_move = self.minimax(self.board, self.played, depth = 2, our_turn = True, current_piece = self.piece)
 
+        print(score)
+        print(best_move)
         return {
         "pos": best_move[0],
         "piece": best_move[1]

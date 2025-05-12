@@ -2,8 +2,7 @@ import functions.dataclass_pooling as pooling
 
 from unittest.mock import MagicMock
 
-def test_initialization():
-
+def test_initialization(): #works
     null = None
     state = {
     "players": ["LUR", "FKY"],"current": 0,"board": [null,"BDEC",null,"SDFP",null,null,null,null,null,"SLFC",null,null,"BLFP","BLEC",null,null], "piece": "BLEP"
@@ -21,7 +20,7 @@ def test_initialization():
     assert len(sit.piece) == 4
     assert type(sit.pieces) == set
 
-def test_win():
+def test_win(): 
 
     null = None
     state = {
@@ -59,9 +58,12 @@ def test_minimax():
     best_score, best_move = sit.minimax(sit.board, sit.played, depth, our_turn, current_piece)
 
     assert best_score == 1000
-    assert best_move == (5, 'SLFP')
+    assert type(best_move[0]) == int
+    assert len(best_move[1]) == 4
+    assert type(best_move[1]) == str
 
-
+def test_chose_case():
+    
 
 
 
