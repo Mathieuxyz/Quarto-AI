@@ -143,4 +143,4 @@ state = {
     }
 sit = quartoAI(state)
 
-sit.chose_case()
+print(sit.give_random_piece())

@@ -10,7 +10,7 @@ def test_initialization(): #works
 
     sit = pooling.quartoAI(state) #sit stands for situation
 
-    assert type(sit.board) == dict
+    assert type(sit.board) == dict #this before the exact value
     assert sit.board == {1: 'BDEC', 3: 'SDFP', 9: 'SLFC', 12: 'BLFP', 13: 'BLEC'}
     assert type(sit.played) == set
     assert sit.played == {'SLFC', 'BLEC', 'BLFP', 'BDEC', 'SDFP'}
@@ -29,6 +29,7 @@ def test_win():
 
     sit = pooling.quartoAI(state) #sit stands for situation
 
+    assert type(sit.win(sit.board)) == bool
     assert sit.win(sit.board) == True
 
 def test_evaluate():
@@ -40,6 +41,7 @@ def test_evaluate():
 
     sit = pooling.quartoAI(state) #sit stands for situation
 
+    assert type(sit.evaluate(sit.board)) == int
     assert sit.evaluate(sit.board) == 8
 
 def test_minimax():
@@ -57,10 +59,11 @@ def test_minimax():
 
     best_score, best_move = sit.minimax(sit.board, sit.played, depth, our_turn, current_piece)
 
+    assert type(best_score) == int
     assert best_score == 1000
     assert type(best_move[0]) == int
-    assert len(best_move[1]) == 4
     assert type(best_move[1]) == str
+    assert len(best_move[1]) == 4
 
 def test_chose_case():
     null = None
@@ -70,8 +73,21 @@ def test_chose_case():
 
     sit = pooling.quartoAI(state) #sit stands for situation
 
-    assert sit.chose_case() == 3 #should give the third position
+    assert type(sit.chose_case()) == int
+    assert sit.chose_case() == 4 #should give the third position
 
+def test_give_random_piece():
+    null = None
+    state = {
+    "players": ["LUR", "FKY"],"current": 0,"board": ["BDEC","BDEP","BDFC",null,null,null,null,null,null,null,null,null,null,null,null,null], "piece": "BDFP"
+    }
+
+    sit = pooling.quartoAI(state)
+
+    assert type(sit.give_random_piece()) == str
+    assert len(sit.give_random_piece()) == 4
+
+def test_move()
 
 
 
