@@ -29,6 +29,7 @@ class quartoAI:
                 self.board.update({i: state["board"][i]})
                 self.played.add(state["board"][i])
 
+
     def win(self, board: dict): #this does not check someone won, but helps to estimate if the AI can win directly by putting one new piece (see chose_case function). Takes the imaginary board as argument
 
         for line in self.lines:
@@ -127,9 +128,18 @@ class quartoAI:
             return self.move_minimax()
 
     def move_minimax(self):
+
         score, best_move = self.minimax(self.board, self.played, depth = 2, our_turn = True, current_piece = self.piece)
 
         return {
         "pos": best_move[0],
         "piece": best_move[1]
         }
+
+null = None
+state = {
+    "players": ["LUR", "FKY"],"current": 0,"board": [null,"BDEC",null,"SDFP",null,null,null,null,null,"SLFC",null,null,"BLFP","BLEC",null,null], "piece": "BLEP"
+    }
+sit = quartoAI(state)
+
+sit.move_minimax()
