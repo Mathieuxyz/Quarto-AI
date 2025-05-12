@@ -1,5 +1,7 @@
 # Quarto-AI
 
+![Run Tests](https://github.com/Mathieuxyz/Quarto-AI/actions/workflows/test.yml/badge.svg)
+
 ## Project Overview
 
 This AI was developed as part of the Advanced Python course at ECAM. It is designed to play the board game **Quarto** and compete against other student AIs in a tournament hosted on a shared server. The AI is capable of handling multiple games simultaneously and calculating optimal moves in real-time.
