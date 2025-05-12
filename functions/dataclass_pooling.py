@@ -137,10 +137,3 @@ class quartoAI:
         "piece": best_move[1]
         }
 
-null = None
-state = {
-    "players": ["LUR", "FKY"],"current": 0,"board": ["BDEC","BDEP","BDFC",null,null,null,null,null,null,null,null,null,null,null,null,null], "piece": "BDFP"
-    }
-sit = quartoAI(state)
-
-print(sit.give_random_piece())

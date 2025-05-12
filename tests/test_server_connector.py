@@ -36,6 +36,7 @@ def test_response_treatment_play():
 
     client.message_sender = MagicMock()
 
+    null = None
     request = {"request": "play", "state": {"players": ["LUR", "FKY"],"current": 0,"board": [null,"BDEC",null,"SDFP",null,null,null,null,null,"SLFC",null,null,"BLFP","BLEC",null,null], "piece": "BLEP"}}
     client.response_treatment(request)
 

@@ -1,7 +1,5 @@
 import functions.dataclass_pooling as pooling
 
-from unittest.mock import MagicMock
-
 def test_initialization(): #works
     null = None
     state = {
@@ -74,7 +72,7 @@ def test_chose_case():
     sit = pooling.quartoAI(state) #sit stands for situation
 
     assert type(sit.chose_case()) == int
-    assert sit.chose_case() == 4 #should give the third position
+    assert sit.chose_case() == 4 #should give the third position, super weird why it's four and not 3. As before we need to add an index but have no explanation
 
 def test_give_random_piece():
     null = None
@@ -87,7 +85,36 @@ def test_give_random_piece():
     assert type(sit.give_random_piece()) == str
     assert len(sit.give_random_piece()) == 4
 
-def test_move()
+def test_move():
+
+    null = None
+    state1 = {
+    "players": ["LUR", "FKY"],"current": 0,"board": ["BDEC","BDEP","BDFC",null,null,null,null,null,null,null,null,null,null,null,null,null], "piece": "BDFP"
+    }
+
+    sit1 = pooling.quartoAI(state1) #To simulate a easy winning situation
+    move1 = sit1.move()
+
+    assert type(move1) == dict
+    assert move1['pos'] == 3 #super weird why it's four and not 3. As before we need to add an index but have no explanation
+    assert type(move1['piece']) == str
+    assert len(move1['piece']) == 4
+
+
+    null = None
+    state2 = {
+    "players": ["LUR", "FKY"],"current": 0,"board": [null,"BDEC",null,null,null,null,null,null,null,null,null,null,null,null,null,null], "piece": "BDFP"
+    }
+
+    sit2 = pooling.quartoAI(state2) #To simulate a complex situation
+    move2 = sit2.move()
+    assert type(move2['pos']) == int
+    assert type(move2['piece']) == str
+    assert len(move2['piece']) == 4
+
+
+
+
 
 
 
