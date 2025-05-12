@@ -53,7 +53,7 @@ class Client: #We will first connect the client to the server to subscribe himse
             try:
 
                 ai = dcp.quartoAI(response["state"])
-                self._message = dcp.ai.move() #call to the win document that manages game startegy
+                self._message = ai.move() #call to the win document that manages game startegy
 
                 response = {"response": "move", "move": self._message, "message": "Carotte"}
                 self.message_sender(response)

@@ -136,4 +136,3 @@ class quartoAI:
         "pos": best_move[0],
         "piece": best_move[1]
         }
-
