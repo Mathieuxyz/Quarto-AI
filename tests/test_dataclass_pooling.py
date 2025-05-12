@@ -63,7 +63,14 @@ def test_minimax():
     assert type(best_move[1]) == str
 
 def test_chose_case():
-    
+    null = None
+    state = {
+    "players": ["LUR", "FKY"],"current": 0,"board": ["BDEC","BDEP","BDFC",null,null,null,null,null,null,null,null,null,null,null,null,null], "piece": "BDFP"
+    }
+
+    sit = pooling.quartoAI(state) #sit stands for situation
+
+    assert sit.chose_case() == 3 #should give the third position
 
 
 
