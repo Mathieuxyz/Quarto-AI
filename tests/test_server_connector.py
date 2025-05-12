@@ -1,3 +1,6 @@
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import Socket.server_connector as connector
 
 from unittest.mock import MagicMock, ANY
