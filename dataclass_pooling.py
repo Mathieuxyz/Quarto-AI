@@ -126,11 +126,36 @@ class quartoAI:
         return None
     
     def give_random_piece(self):
+        """Choose a random piece among safe ones (not allowing opponent to win immediately)."""
 
-        choices = self.pieces - self.played #pieces available to play
+        choices = self.pieces - self.played  # pieces available to play
 
-        return random.choice(list(choices)) #if nothing is safe we return smth random, last case
-    
+        safe_choices = []
+
+        # For each piece not yet played, check if giving it allows an immediate win
+        for p in choices:
+            test_board = copy.deepcopy(self.board)
+            occupied = set(self.board.keys())
+            free = set(range(16)) - occupied
+
+            is_safe = True
+
+            for pos in free:
+                test_board[pos] = p
+                if self.win(test_board):
+                    is_safe = False  # if opponent can win immediately with this piece, it's not safe
+                    break
+                del test_board[pos]  # undo the move
+
+            if is_safe:
+                safe_choices.append(p)
+
+        if safe_choices:
+            return random.choice(safe_choices)  # randomly pick a safe piece
+        else:
+            return random.choice(list(choices))  # if no safe choice exists, pick any
+
+        
     def move(self): #after the class is created, we ask to calculate the next move and piece to give
 
         pos = self.chose_case()
