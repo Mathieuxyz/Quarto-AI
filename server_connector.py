@@ -83,6 +83,6 @@ if __name__ == "__main__" :
             "name": "Tartiflette",
             "matricules": ["23363", "23049"]
             }
-    client = Client('172.17.10.133', 3000, message)
+    client = Client('192.168.1.14', 3000, message)
     client.subscribe()
 

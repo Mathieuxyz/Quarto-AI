@@ -43,17 +43,33 @@ class quartoAI:
         return False 
 
     def evaluate(self, board: dict):
-
-        val = 0  #gives a value based on the state of the game, if it is in our favor or in the opponent's favor
+        val = 0  # overall evaluation value of the board
 
         for line in self.lines:
-            line_pieces = [board[i] for i in line if i in board]    #creates a list with all the pieces in a line 
-            if len(line_pieces) > 1:    #ignore les lignes ou il n'y a que une piece
+            # extract the pieces placed on this line
+            line_pieces = [board[i] for i in line if i in board]
+
+            if len(line_pieces) > 0:
+                # find common characteristics between pieces on the line
                 common = set(line_pieces[0])
                 for piece in line_pieces[1:]:
                     common &= set(piece)
-                    val += len(common)  #gives a value based on the amout of common pionts in a line
+
+                # Big bonus if there are 3 pieces aligned with at least 1 common trait
+                if len(line_pieces) == 3 and len(common) >= 1:
+                    val += 500  # almost winning situation -> very good
+                # Smaller bonus if there are 2 pieces aligned with common traits
+                elif len(line_pieces) == 2 and len(common) >= 1:
+                    val += 50   # preparing a good line
+                # Very small bonus for a single piece placed
+                elif len(line_pieces) == 1:
+                    val += 5    # minor advantage
+
+                # Additional bonus proportional to the number of common traits
+                val += len(common) * len(line_pieces)
+
         return val
+
     
     def minimax(self, board, played_pieces, depth, our_turn, current_piece):
 
@@ -128,7 +144,7 @@ class quartoAI:
 
     def move_minimax(self):
 
-        score, best_move = self.minimax(self.board, self.played, depth = 2, our_turn = True, current_piece = self.piece)
+        score, best_move = self.minimax(self.board, self.played, depth = 4, our_turn = True, current_piece = self.piece)
 
         print(score)
         print(best_move)
