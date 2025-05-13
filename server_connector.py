@@ -4,7 +4,7 @@ import json
 
 import os
 
-import functions.dataclass_pooling as dcp
+import dataclass_pooling as dcp
 
 
 class Client: #We will first connect the client to the server to subscribe himself to the contest and only then he will shift to player mode with another port

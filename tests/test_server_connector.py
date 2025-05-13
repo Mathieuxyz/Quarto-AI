@@ -1,5 +1,5 @@
 
-import Socket.server_connector as connector
+import server_connector as connector
 
 from unittest.mock import MagicMock, ANY
 

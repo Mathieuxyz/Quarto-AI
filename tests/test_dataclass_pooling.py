@@ -1,5 +1,5 @@
 
-import functions.dataclass_pooling as pooling
+import dataclass_pooling as pooling
 
 def test_initialization(): #works
     null = None
