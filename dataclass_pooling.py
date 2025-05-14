@@ -95,6 +95,9 @@ class quartoAI:
             new_board = board.copy()
             new_board[position] = current_piece
 
+            if self.win(new_board):
+                return (1000 if our_turn else -1000), (position, next_piece)    #victory test after each itterations
+
             new_played = played_pieces | {current_piece}
 
             for next_piece in remaining_pieces:
@@ -169,7 +172,7 @@ class quartoAI:
 
     def move_minimax(self):
 
-        score, best_move = self.minimax(self.board, self.played, depth = 4, our_turn = True, current_piece = self.piece)
+        score, best_move = self.minimax(self.board, self.played, depth = 8, our_turn = True, current_piece = self.piece)
 
         print(score)
         print(best_move)
@@ -177,3 +180,5 @@ class quartoAI:
         "pos": best_move[0],
         "piece": best_move[1]
         }
+    
+
