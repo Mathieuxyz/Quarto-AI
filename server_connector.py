@@ -8,11 +8,14 @@ import dataclass_pooling as dcp
 
 
 class Client: #We will first connect the client to the server to subscribe himself to the contest and only then he will shift to player mode with another port
+
     def __init__(self, host, port, message): #To NOT modify !
         self.host = host
         self.port = port
         self.message = message
+
     def subscribe(self): #We will first connect the client to the server to subscribe himself to the contest
+
         try: # Connect to the server
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #TCP connnection
             self.s.connect((self.host, self.port))
@@ -22,7 +25,9 @@ class Client: #We will first connect the client to the server to subscribe himse
             self.connect_game()
         except ConnectionRefusedError as e: #in case a connection failed
             print(f'Connection failed: {e}')
+
     def connect_game(self): #connecting the new socket to play on a new port
+
         try: # Connect to the server
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #TCP connection
             self.s.bind(('0.0.0.0', self.message["port"]))
@@ -52,7 +57,7 @@ class Client: #We will first connect the client to the server to subscribe himse
             try:
 
                 ai = dcp.quartoAI(response["state"])
-                self._message = ai.move() #call to the win document that manages game startegy
+                self._message = ai.move_minimax() #call to the win document that manages game startegy
 
                 response = {"response": "move", "move": self._message, "message": "Carotte"}
                 self.message_sender(response)
@@ -60,6 +65,7 @@ class Client: #We will first connect the client to the server to subscribe himse
             except: #if nothing works, we give up the game. This ia a security barrier to avoid doing a bad move
 
                 self.message_sender({"response": "giveup"})
+                print('giveup')
 
         else: #if another message is received
 

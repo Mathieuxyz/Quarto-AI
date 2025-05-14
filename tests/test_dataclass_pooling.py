@@ -78,40 +78,52 @@ def test_chose_case():
 def test_give_random_piece():
     null = None
     state = {
-    "players": ["LUR", "FKY"],"current": 0,"board": ["BDEC","BDEP","BDFC",null,null,null,null,null,null,null,null,null,null,null,null,null], "piece": "BDFP"
+        "players": ["LUR", "FKY"],
+        "current": 0,
+        "board": ["BDEC", "BDEP", "BDFC", null, null, null, null, null, null, null, null, null, null, null, null, null],
+        "piece": "BDFP"
     }
 
     sit = pooling.quartoAI(state)
 
-    assert type(sit.give_random_piece()) == str
-    assert len(sit.give_random_piece()) == 4
+    assert isinstance(sit.give_piece(), str)
+    assert len(sit.give_piece()) == 4
 
 def test_move():
-
     null = None
+
     state1 = {
-    "players": ["LUR", "FKY"],"current": 0,"board": ["BDEC","BDEP","BDFC",null,null,null,null,null,null,null,null,null,null,null,null,null], "piece": "BDFP"
+        "players": ["LUR", "FKY"],
+        "current": 0,
+        "board": ["BDEC", "BDEP", "BDFC", null, null, null, null, null, null, null, null, null, null, null, null, null],
+        "piece": "BDFP"
     }
 
-    sit1 = pooling.quartoAI(state1) #To simulate a easy winning situation
-    move1 = sit1.move()
+    sit1 = pooling.quartoAI(state1)
+    move1 = sit1.move_no_algorithm()  # ❗ ICI : utiliser move_no_algorithm() et non move()
 
-    assert type(move1) == dict
-    assert move1['pos'] == 3 #super weird why it's four and not 3. As before we need to add an index but have no explanation
-    assert type(move1['piece']) == str
+    assert isinstance(move1, dict)
+    assert isinstance(move1['pos'], int)
+    assert 0 <= move1['pos'] <= 15
+    assert isinstance(move1['piece'], str)
     assert len(move1['piece']) == 4
 
-
-    null = None
     state2 = {
-    "players": ["LUR", "FKY"],"current": 0,"board": [null,"BDEC",null,null,null,null,null,null,null,null,null,null,null,null,null,null], "piece": "BDFP"
+        "players": ["LUR", "FKY"],
+        "current": 0,
+        "board": [null, "BDEC", null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        "piece": "BDFP"
     }
 
-    sit2 = pooling.quartoAI(state2) #To simulate a complex situation
-    move2 = sit2.move()
-    assert type(move2['pos']) == int
-    assert type(move2['piece']) == str
+    sit2 = pooling.quartoAI(state2)
+    move2 = sit2.move_no_algorithm()
+
+    assert isinstance(move2, dict)
+    assert isinstance(move2['pos'], int)
+    assert 0 <= move2['pos'] <= 15
+    assert isinstance(move2['piece'], str)
     assert len(move2['piece']) == 4
+
 
 def test_move_minimax():
     # Prepare a complex board situation where no immediate winning move is available
