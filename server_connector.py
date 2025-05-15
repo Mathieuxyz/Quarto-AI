@@ -59,7 +59,7 @@ class Client: #We will first connect the client to the server to subscribe himse
                 ai = dcp.quartoAI(response["state"])
                 self._message = ai.move_minimax() #call to the win document that manages game startegy
 
-                response = {"response": "move", "move": self._message, "message": "carottes et tartiflettes"}
+                response = {"response": "move", "move": self._message, "message": "Carotte"}
                 self.message_sender(response)
 
             except: #if nothing works, we give up the game. This ia a security barrier to avoid doing a bad move
